@@ -55,6 +55,19 @@ def greedy_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+    trips = []
+    cowsCopy = cows.copy()
+    sortedCows=sorted(cowsCopy.items(), key=lambda x:x[1], reverse = True)
+    while sum(cowsCopy.values())>0:
+        ship =[]
+        total =0
+        for i,w in sortedCows:
+            if cowsCopy[i] != 0 and w + total <= limit :
+                ship.append(i)
+                total +=w
+                cowsCopy[i]=0
+        trips.append(ship)
+    return trips
     pass
 
 
