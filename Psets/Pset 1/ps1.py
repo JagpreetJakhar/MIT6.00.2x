@@ -93,6 +93,28 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+    trips=[]
+    parts=sorted(get_partitions(cows),key=len)
+    solutions=[]
+    for i in parts: #enter sorted partitions
+        ships=[]
+        for j in i : #iterate over each partition
+            weights=[]
+            for k in j: #get weight of each cow in each partition
+                weights.append(cows[k])
+            ships.append(sum(weights))
+        if all(d <= limit for d in ships):
+            solutions.append(i)
+        #This may contain repeats of same solutions
+    cleaned_solutions=[]
+    for w in solutions:
+        if w not in cleaned_solutions:
+            cleaned_solutions.append(w)
+    #now search for min length list
+    best_sol=min(map(len,cleaned_solutions))
+    for m in cleaned_solutions:
+        if len(m) == best_sol :
+            return m
     pass
 
         
