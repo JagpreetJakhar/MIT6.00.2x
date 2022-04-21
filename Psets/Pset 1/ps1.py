@@ -132,7 +132,17 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
+  
     # TODO: Your code here
+    start=time.time()
+    print(greedy_cow_transport(cows, 10))
+    end=time.time()
+    print('Greedy Time: ', end-start)
+
+    start2=time.time()
+    print(brute_force_cow_transport(cows, 10))
+    end2=time.time()
+    print('Brute Time',end2-start2)
     pass
 
 
