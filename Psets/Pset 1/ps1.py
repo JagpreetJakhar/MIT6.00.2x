@@ -55,6 +55,19 @@ def greedy_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+    trips = []
+    cowsCopy = cows.copy()
+    sortedCows=sorted(cowsCopy.items(), key=lambda x:x[1], reverse = True)
+    while sum(cowsCopy.values())>0:
+        ship =[]
+        total =0
+        for i,w in sortedCows:
+            if cowsCopy[i] != 0 and w + total <= limit :
+                ship.append(i)
+                total +=w
+                cowsCopy[i]=0
+        trips.append(ship)
+    return trips
     pass
 
 
@@ -80,6 +93,28 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+    trips=[]
+    parts=sorted(get_partitions(cows),key=len)
+    solutions=[]
+    for i in parts: #enter sorted partitions
+        ships=[]
+        for j in i : #iterate over each partition
+            weights=[]
+            for k in j: #get weight of each cow in each partition
+                weights.append(cows[k])
+            ships.append(sum(weights))
+        if all(d <= limit for d in ships):
+            solutions.append(i)
+        #This may contain repeats of same solutions
+    cleaned_solutions=[]
+    for w in solutions:
+        if w not in cleaned_solutions:
+            cleaned_solutions.append(w)
+    #now search for min length list
+    best_sol=min(map(len,cleaned_solutions))
+    for m in cleaned_solutions:
+        if len(m) == best_sol :
+            return m
     pass
 
         
@@ -97,7 +132,17 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
+  
     # TODO: Your code here
+    start=time.time()
+    print(greedy_cow_transport(cows, 10))
+    end=time.time()
+    print('Greedy Time: ', end-start)
+
+    start2=time.time()
+    print(brute_force_cow_transport(cows, 10))
+    end2=time.time()
+    print('Brute Time',end2-start2)
     pass
 
 
