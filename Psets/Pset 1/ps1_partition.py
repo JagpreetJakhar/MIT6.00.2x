@@ -5,6 +5,7 @@ def partitions(set_):
         return
     for i in range(2**len(set_)//2):
         parts = [set(), set()]
+        print(parts)
         for item in set_:
             parts[i&1].add(item)
             i >>= 1
@@ -21,5 +22,8 @@ def get_partitions(set_):
 ### Uncomment the following code  and run this file
 ### to see what get_partitions does if you want to visualize it:
 
-#for item in (get_partitions(['a','b','c','d'])):
-#     print(item)
+for item in (get_partitions(['a','b','c','d'])):
+        
+     
+        print(item)
+    
